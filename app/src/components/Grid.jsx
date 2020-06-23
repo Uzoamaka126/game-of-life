@@ -32,8 +32,8 @@ export function Grids() {
   // so we are going to use a useCallback and have it take an empty dependency
   // as a second parameter
   const startSimulation = useCallback(() => {
+    console.log(running, running.current);
     if (!running.current) return;
-
     setGrid((g) => {
       return produce(g, (gridCopy) => {
         for (let i = 0; i < numOfRows; i++) {
@@ -43,20 +43,21 @@ export function Grids() {
             operations.forEach(([x, y]) => {
               const newI = i + x;
               const newJ = j + y;
+              // check to see that we don't go out of bounds
               if (
                 newI >= 0 &&
                 newI <= numOfRows &&
                 newJ >= 0 &&
                 newJ < numOfColumns
               ) {
-                  neighbours += g[newI][newJ]
+                neighbours += g[newI][newJ];
               }
             });
-              if (neighbours < 2 || neighbours > 3) {
-                  gridCopy[i][j] = 0
-              } else if (g[i][j] === 0 && neighbours === 3) {
-
-              }
+            if (neighbours < 2 || neighbours > 3) {
+              gridCopy[i][j] = 0;
+            } else if (g[i][j] === 0 && neighbours === 3) {
+              gridCopy[i][j] = 1;
+            }
           }
         }
       });
@@ -107,9 +108,13 @@ export function Grids() {
           marginTop: "15px",
         }}
       >
-        <StartButton />
-        <PauseButton />
-        <StopButton />
+        <StartButton
+          runRef={runRef}
+          setRunning={setRunning}
+          startSimulation={startSimulation}
+        />
+        <PauseButton runRef={runRef} setRunning={setRunning} />
+        <StopButton runRef={runRef} setRunning={setRunning} />
       </div>
     </div>
   );

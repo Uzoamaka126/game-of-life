@@ -1,6 +1,6 @@
 import React from "react";
 
-export function StartButton(props) {
+export function StartButton({ startSimulation, setRunning, runRef }) {
   return (
     <button
       style={{
@@ -9,7 +9,13 @@ export function StartButton(props) {
         padding: "14px 16px",
         fontSize: "1rem",
         color: "#333",
-        background: "#fff"
+        background: "#fff",
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        setRunning(true);
+        runRef.current = true;
+        startSimulation();
       }}
     >
       Start
@@ -17,7 +23,7 @@ export function StartButton(props) {
   );
 }
 
-export function PauseButton(props) {
+export function PauseButton({ setRunning, runRef }) {
   return (
     <button
       style={{
@@ -26,7 +32,12 @@ export function PauseButton(props) {
         padding: "14px 16px",
         fontSize: "1rem",
         color: "#333",
-        background: "#fff"
+        background: "#fff",
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        runRef.current = false;
+        setRunning(false);
       }}
     >
       Pause
@@ -34,7 +45,7 @@ export function PauseButton(props) {
   );
 }
 
-export function StopButton(props) {
+export function StopButton({ setRunning, runRef }) {
   return (
     <button
       style={{
@@ -43,7 +54,12 @@ export function StopButton(props) {
         padding: "14px 16px",
         fontSize: "1rem",
         color: "#333",
-        background: "#fff"
+        background: "#fff",
+        cursor: "pointer",
+      }}
+      onClick={() => {
+        runRef.current = false;
+        setRunning(false);
       }}
     >
       Stop
