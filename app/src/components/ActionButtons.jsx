@@ -1,28 +1,52 @@
-import React from 'react'
+import React from "react";
 
 export function StartButton(props) {
-    return <button style={{ 
+  return (
+    <button
+      style={{
         borderRadius: "10px",
-        border: "1px solid #333",
+        border: "1px solid #c4c4c4",
         padding: "14px 16px",
-        fontSize: "1.15rem"
-    }}>Start</button>
+        fontSize: "1rem",
+        color: "#333",
+        background: "#fff"
+      }}
+    >
+      Start
+    </button>
+  );
 }
 
 export function PauseButton(props) {
-    return <button style={{ 
+  return (
+    <button
+      style={{
         borderRadius: "10px",
-        border: "1px solid #333",
+        border: "1px solid #c4c4c4",
         padding: "14px 16px",
-        fontSize: "1.15rem"
-    }}>Pause</button>
+        fontSize: "1rem",
+        color: "#333",
+        background: "#fff"
+      }}
+    >
+      Pause
+    </button>
+  );
 }
 
 export function StopButton(props) {
-    return <button style={{ 
+  return (
+    <button
+      style={{
         borderRadius: "10px",
-        border: "1px solid #333",
+        border: "1px solid #c4c4c4",
         padding: "14px 16px",
-        fontSize: "1.15rem"
-    }}>Stop</button>
+        fontSize: "1rem",
+        color: "#333",
+        background: "#fff"
+      }}
+    >
+      Stop
+    </button>
+  );
 }

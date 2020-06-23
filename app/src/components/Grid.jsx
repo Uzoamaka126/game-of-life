@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { produce } from "immer";
 import { StartButton, PauseButton, StopButton } from "./ActionButtons";
 
 const numOfRows = 30;
 const numOfColumns = 30;
+const operations = [
+  [0, 1],
+  [0, -1],
+  [1, -1],
+  [-1, 1],
+  [1, 1],
+  [-1, -1],
+  [1, 0],
+  [-1, 0],
+];
 
 export function Grids() {
   const [grid, setGrid] = useState(() => {
@@ -14,9 +24,55 @@ export function Grids() {
     }
     return rows;
   });
+  const [running, setRunning] = useState(false);
+  const runRef = useRef(running);
+  runRef.current = running;
+
+  // Here's the thing, we want our function to run only once
+  // so we are going to use a useCallback and have it take an empty dependency
+  // as a second parameter
+  const startSimulation = useCallback(() => {
+    if (!running.current) return;
+
+    setGrid((g) => {
+      return produce(g, (gridCopy) => {
+        for (let i = 0; i < numOfRows; i++) {
+          for (let j = 0; j < numOfColumns; j++) {
+            //   compute the neighbours
+            let neighbours = 0;
+            operations.forEach(([x, y]) => {
+              const newI = i + x;
+              const newJ = j + y;
+              if (
+                newI >= 0 &&
+                newI <= numOfRows &&
+                newJ >= 0 &&
+                newJ < numOfColumns
+              ) {
+                  neighbours += g[newI][newJ]
+              }
+            });
+              if (neighbours < 2 || neighbours > 3) {
+                  gridCopy[i][j] = 0
+              } else if (g[i][j] === 0 && neighbours === 3) {
+
+              }
+          }
+        }
+      });
+    });
+
+    setTimeout(startSimulation, 1000);
+  }, []);
 
   return (
-    <>
+    <div
+      style={{
+        maxWidth: "70%",
+        margin: "auto",
+        padding: "30px 15px",
+      }}
+    >
       <div
         style={{
           display: "grid",
@@ -43,14 +99,18 @@ export function Grids() {
           ))
         )}
       </div>
-          <div style={{
-              display: "flex",
-              justifyContent: "space-between"
-          }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "60%",
+          marginTop: "15px",
+        }}
+      >
         <StartButton />
         <PauseButton />
         <StopButton />
       </div>
-    </>
+    </div>
   );
 }
