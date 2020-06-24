@@ -3,7 +3,7 @@ import { produce } from "immer";
 import { StartButton, PauseButton, StopButton } from "./ActionButtons";
 
 const numOfRows = 30;
-const numOfColumns = 30;
+const numOfColumns = 50;
 const operations = [
   [0, 1],
   [0, -1],
@@ -15,7 +15,7 @@ const operations = [
   [-1, 0],
 ];
 
-export function Grids() {
+export function Grid() {
   const [grid, setGrid] = useState(() => {
     const rows = [];
     for (let i = 0; i < numOfRows; i++) {
@@ -27,6 +27,7 @@ export function Grids() {
   const [running, setRunning] = useState(false);
   const runRef = useRef(running);
   runRef.current = running;
+  const[generation, setGeneration] = useState(0)
 
   // Here's the thing, we want our function to run only once
   // so we are going to use a useCallback and have it take an empty dependency
