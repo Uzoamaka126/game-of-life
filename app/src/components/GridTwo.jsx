@@ -1,50 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { StartButton, PauseButton, StopButton } from "./ActionButtons";
 
-function Box({ boxClass, boxId, selectBoxProps, row, col }) {
-  function selectBox() {
-    selectBoxProps(row, col);
-  }
-
-  return (
-    <div
-      className={boxClass}
-      id={boxId}
-      onClick={selectBox}
-      //   style={{
-      //     width: "20",
-      //     heights: 20,
-      //     backgroundColor: [row][col] ? "black" : "white",
-      //     border: "1px solid #ddd",
-      //   }}
-    />
-  );
-}
 export function GridTwo({ grid, rows, columns, selectBox, generation }) {
-  //   var rowsArr = [];
-  //   var boxClass = "";
-
-  //   for (var i = 0; i < rows; i++) {
-  //     for (var j = 0; j < columns; j++) {
-  //       let boxId = i + "_" + j;
-  //       boxClass = grid[i][j] ? "box on" : "box off";
-  //       console.log(boxClass);
-  //       rowsArr.push(
-  //         <Box
-  //           boxClass={boxClass}
-  //           key={`${i}-${j}`}
-  //           boxId={`${i}-${j}`}
-  //           row={i}
-  //           col={j}
-  //           selectBoxProps={selectBox}
-  //         />
-  //       );
-  //     }
-  //   }
-
+ 
+  function selectBoxCell(row, col) {
+    selectBox(row, col)
+  }
   return (
     <>
-      <div className="grid" style={{ width: columns * 21 }}>
+      <div>
+        <h4 className="text-center">Generation : {generation}</h4>
+      </div>
+      <div className="grid" style={{ width: columns * 10 }}>
         {grid.map(
           (rows, i) =>
             rows.map((col, j) => (
@@ -57,16 +24,11 @@ export function GridTwo({ grid, rows, columns, selectBox, generation }) {
                   backgroundColor: grid[i][j] ? "black" : "white",
                   border: "1px solid #ddd",
                 }}
-                onClick={() =>
-                  selectBox(i, j)
-                }
+                onClick={() => selectBoxCell(i, j)}
               />
             ))
           //   )
         )}
-          </div>
-          <div>
-              <h4>{generation}</h4>
           </div>
       <div
         style={{

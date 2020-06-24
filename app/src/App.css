@@ -1,14 +1,60 @@
 .App {
-  min-height: 100vh
+  min-height: 100vh;
 }
 
 body {
-  background-image: url('./assets/double-bubble-dark.png');
+  background-image: url("./assets/double-bubble-dark.png");
 }
-
+.wrapper {
+  width: 100%;
+  max-width: 100%;
+  margin-top: 10px;
+}
+.heading {
+  width: 50%;
+  margin: 30px auto;
+}
+.heading h3 {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 600;
+}
+.sub-heading {
+  font-size: 1.25rem;
+  color: #fff;
+  font-weight: 600;
+}
+.text-center {
+  text-align: center;
+}
+.text-white {
+  color: #f9f9f9;
+  font-size: 1.15rem;
+}
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 30px;
+  /* border: 3px solid purple; */
+}
+.game-container {
+  display: flex;
+  justify-content: space-between;
+  max-width: 60%;
+  width: 63%;
+    border: 1px solid green;
+}
+.grid-container {
+  width: 50%;
+}
+.rules-container {
+  width: 35%;
+  max-width: 35%;
+}
 .box {
   display: inline-block;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 15px;
   height: 15px;
   margin-left: -1px;
@@ -28,20 +74,22 @@ body {
 }
 
 .center {
-  margin: auto;
+  /* margin: auto; */
   display: table;
-  margin-top: 10px;
 }
 
 .grid {
   width: 150px;
   line-height: 0;
   margin: auto;
-  box-shadow: 0px 0px 10px white;
+  /* box-shadow: 0px 0px 10px white; */
   margin-top: 20px;
 }
 
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   color: white;
   margin: auto;
   text-align: center;
@@ -50,6 +98,5 @@ h1, h2, h3, h4 {
 }
 
 h4 {
-    margin-top: 0px;
+  margin-top: 0px;
 }
-
