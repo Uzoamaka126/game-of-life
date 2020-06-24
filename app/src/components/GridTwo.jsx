@@ -20,9 +20,9 @@ function Box({ boxClass, boxId, selectBoxProps, row, col }) {
     />
   );
 }
-export function GridTwo({ grid, rows, columns, selectBox }) {
-//   var rowsArr = [];
-//   var boxClass = "";
+export function GridTwo({ grid, rows, columns, selectBox, generation }) {
+  //   var rowsArr = [];
+  //   var boxClass = "";
 
   //   for (var i = 0; i < rows; i++) {
   //     for (var j = 0; j < columns; j++) {
@@ -57,12 +57,17 @@ export function GridTwo({ grid, rows, columns, selectBox }) {
                   backgroundColor: grid[i][j] ? "black" : "white",
                   border: "1px solid #ddd",
                 }}
-                    onClick={() => { console.log(i, j); selectBox(i, j)}}
+                onClick={() =>
+                  selectBox(i, j)
+                }
               />
             ))
           //   )
         )}
-      </div>
+          </div>
+          <div>
+              <h4>{generation}</h4>
+          </div>
       <div
         style={{
           display: "flex",
