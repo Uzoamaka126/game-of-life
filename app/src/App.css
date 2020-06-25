@@ -1,21 +1,22 @@
-.App {
-  min-height: 100vh;
+* {
+  margin: 0;
+  padding: 0;
 }
-
 body {
-  background-image: url("./assets/double-bubble-dark.png");
+  width: 100%;
+  min-height: 100vh;
 }
 .wrapper {
   width: 100%;
   max-width: 100%;
-  margin-top: 10px;
+  background-image: url("./assets/double-bubble-dark.png");
 }
 .heading {
   width: 50%;
   margin: 30px auto;
 }
 .heading h3 {
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #fff;
   font-weight: 600;
 }
@@ -37,16 +38,16 @@ body {
   padding-left: 50px;
   padding-right: 30px;
   /* border: 3px solid purple; */
+  width: 100%;
 }
 .game-container {
   display: flex;
   justify-content: space-between;
-  max-width: 60%;
-  width: 63%;
-    border: 1px solid green;
+  max-width: 100%;
+  width: 100%;
 }
 .grid-container {
-  width: 50%;
+  width: 60%;
 }
 .rules-container {
   width: 35%;
@@ -54,9 +55,9 @@ body {
 }
 .box {
   display: inline-block;
-  /* border: 1px solid blue; */
-  width: 15px;
-  height: 15px;
+  border: 1px solid blue;
+  width: 10px;
+  height: 10px;
   margin-left: -1px;
   margin-bottom: -1px;
 }
@@ -82,7 +83,7 @@ body {
   width: 150px;
   line-height: 0;
   margin: auto;
-  /* box-shadow: 0px 0px 10px white; */
+  box-shadow: 0px 0px 10px white;
   margin-top: 20px;
 }
 
@@ -99,4 +100,67 @@ h4 {
 
 h4 {
   margin-top: 0px;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding-top: 2rem;
+}
+nav a {
+  font-size: 16px;
+  color: #fff;
+  /* text-decoration: none; */
+  font-size: 18px;
+  margin-right: 7rem;
+}
+nav a:hover {
+  color: #0366d6;
+}
+nav h2 {
+  font-size: 30px;
+}
+.dropbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+  border-radius: 5px;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  width: fit-content;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+.dropdown-content button {
+  color: black;
+  padding: 10px;
+  display: block;
+  min-width: 100px;
+  margin-left: -1px;
+  margin-bottom: -1px;
+}
+.dropdown-content button:hover {
+  background-color: rgb(202, 201, 201);
+  color: #333;
+  border-bottom: none;
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
 }

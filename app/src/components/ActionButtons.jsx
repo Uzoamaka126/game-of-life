@@ -1,68 +1,57 @@
 import React from "react";
 
-export function StartButton({ startSimulation, setRunning, runRef }) {
+function CustomButton({ onClick, label }) {
   return (
     <button
       style={{
-        borderRadius: "10px",
-        border: "1px solid #c4c4c4",
-        padding: "14px 16px",
-        fontSize: "1rem",
+        outline: "none",
+        borderRadius: "5px",
+        border: "none",
+        padding: "10px",
+        fontSize: "0.875rem",
         color: "#333",
         background: "#fff",
         cursor: "pointer",
+        marginRight: "10px",
+        width: "fit-content",
+        marginTop: "10px"
       }}
-      onClick={() => {
-        setRunning(true);
-        runRef.current = true;
-        startSimulation();
-      }}
+      onClick={onClick}
     >
-      Start
+      {label}
     </button>
   );
 }
-
-export function PauseButton({ setRunning, runRef }) {
+export function StartButton({ onClick }) {
   return (
-    <button
-      style={{
-        borderRadius: "10px",
-        border: "1px solid #c4c4c4",
-        padding: "14px 16px",
-        fontSize: "1rem",
-        color: "#333",
-        background: "#fff",
-        cursor: "pointer",
-      }}
-      onClick={() => {
-        runRef.current = false;
-        setRunning(false);
-      }}
-    >
-      Pause
-    </button>
+    <CustomButton onClick={onClick} label="Start" />
   );
 }
 
-export function StopButton({ setRunning, runRef }) {
+export function SlowButton({ onClick }) {
   return (
-    <button
-      style={{
-        borderRadius: "10px",
-        border: "1px solid #c4c4c4",
-        padding: "14px 16px",
-        fontSize: "1rem",
-        color: "#333",
-        background: "#fff",
-        cursor: "pointer",
-      }}
-      onClick={() => {
-        runRef.current = false;
-        setRunning(false);
-      }}
-    >
-      Stop
-    </button>
+    <CustomButton onClick={onClick} label="Slow" />
+  );
+}
+
+export function SeedButton({ onClick }) {
+  return (
+    <CustomButton onClick={onClick} label="Seed" />
+  );
+}
+export function FastButton({ onClick }) {
+  return (
+    <CustomButton onClick={onClick} label="Fast" />
+  );
+}
+export function PauseButton({ onClick }) {
+  return (
+    <CustomButton onClick={onClick} label="Pause" />
+  );
+}
+
+export function ClearButton({ onClick }) {
+  return (
+    <CustomButton onClick={onClick} label="Clear" />
   );
 }
