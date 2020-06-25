@@ -5,17 +5,12 @@ export function GridTwo({
   rows,
   columns,
   selectBox,
-  generation,
 }) {
   function selectBoxCell(row, col) {
     selectBox(row, col);
   }
   return (
-    <>
-      <div>
-        <h4 className="text-center">Generation : {generation}</h4>
-      </div>
-      <div className="grid" style={{ width: columns * 16 }}>
+      <div className="grid" style={{ width: columns * 14 }}>
         {grid.map((rows, i) =>
           rows.map((col, j) => (
             <div
@@ -32,6 +27,5 @@ export function GridTwo({
           ))
         )}
       </div>
-    </>
   );
 }

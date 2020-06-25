@@ -107,29 +107,24 @@ export function Home() {
       case "1":
         numOfColumns = 20;
         numOfRows = 10;
-        console.log(size);
         break;
       case "2":
         numOfColumns = 60;
         numOfRows = 40;
-        console.log(size);
         break;
       case "3":
         numOfColumns = 70;
         numOfRows = 50;
-        console.log(size);
         break;
       default:
         numOfColumns = 30;
         numOfRows = 50;
-        console.log(size);
     }
     clear();
   }
 
   useEffect(() => {
     seed();
-    // playButton();
   }, []);
 
   return (
@@ -138,47 +133,35 @@ export function Home() {
         <nav>
           <h2>Conway's Game of Life'</h2>
           <Link to="/about">About</Link>
-        </nav>
+              </nav>
+              <div
+                  className="center"
+              >
+                  <SlowButton onClick={slow} />
+                  <FastButton onClick={fast} />
+                  <SeedButton onClick={seed} />
+                  <StartButton onClick={playButton} />
+                  <PauseButton onClick={pauseButton} />
+                  <ClearButton onClick={clear} />
+                  <div className="dropdown">
+                      <button className="dropbtn">Choose Grid</button>
+                      <div className="dropdown-content">
+                          <button onClick={() => gridSize(1)}>20x10</button>
+                          <button onClick={() => gridSize(2)}>50x30</button>
+                          <button onClick={() => gridSize(3)}>70x50</button>
+                      </div>
+                  </div>
+              </div>
+              <div>
+                  <h4 className="text-center">Generation : {generation}</h4>
+              </div>
         <div className="d-flex">
-          <div className="grid-container">
             <GridTwo
               grid={grid}
               rows={numOfRows}
               columns={numOfColumns}
-              selectBox={selectBox}
-              generation={generation}
-              playButton={playButton}
-              pauseButton={pauseButton}
-              slow={slow}
-              fast={fast}
-              clear={clear}
-            />
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "30%",
-              margin: "15px auto",
-              border: "1px solid red",
-            }}
-          >
-            <SlowButton onClick={slow} />
-            <FastButton onClick={fast} />
-            <SeedButton onClick={seed} />
-            <StartButton onClick={playButton} />
-            <PauseButton onClick={pauseButton} />
-            <ClearButton onClick={clear} />
-            <div className="dropdown">
-              <button className="dropbtn">Choose Grid</button>
-              <div className="dropdown-content">
-                <button onClick={() => gridSize(1)}>20x10</button>
-                <button onClick={() => gridSize(2)}>50x30</button>
-                <button onClick={() => gridSize(3)}>70x50</button>
-              </div>
-            </div>
-          </div>
+                      selectBox={selectBox}
+            />          
         </div>
       </div>
     </div>
