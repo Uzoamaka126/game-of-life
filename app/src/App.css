@@ -9,7 +9,7 @@ body {
 .wrapper {
   width: 100%;
   max-width: 100%;
-  background-image: url("./assets/double-bubble-dark.png");
+  background-image: url("./assets/moroccan-flower-dark.png");
 }
 .heading {
   width: 50%;
@@ -48,6 +48,7 @@ body {
 }
 .grid-container {
   width: 60%;
+  border: 1px solid red;
 }
 .rules-container {
   width: 35%;
@@ -111,16 +112,59 @@ nav {
 }
 nav a {
   font-size: 16px;
-  color: #fff;
+  color: #212464;
   /* text-decoration: none; */
   font-size: 18px;
   margin-right: 7rem;
 }
 nav a:hover {
-  color: #0366d6;
+  color: #3483dd;
+}
+.about-nav {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+  padding-top: 2rem;
+  width: 70%;
+  justify-content: space-between;
+  padding-left: 30px;
+}
+.about-nav h2, .about-nav a {
+    color: #212464;
 }
 nav h2 {
-  font-size: 30px;
+  font-size: 35px;
+  color: #c4c4c4;
+}
+nav a {
+  font-size: 16px;
+  color: #c4c4c4;
+}
+.about-container {
+  width: 100%;
+  max-width: 100%;
+}
+.about-wrapper {
+  width: 100%;
+}
+.rules-container, .about-info {
+  width: 50%;
+  margin: auto;
+}
+.about-info h3 {
+  font-style: 27px;
+      color: #212464;
+        margin-top: 1rem;
+}
+.about-info-text {
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
+  margin-top: 1rem;
+}
+
+.rules-ui li {
+  margin-top: 0.625rem;
 }
 .dropbtn {
   background-color: #4caf50;

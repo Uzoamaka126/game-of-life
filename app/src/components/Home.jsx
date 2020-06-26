@@ -9,23 +9,31 @@ import {
   ClearButton,
   FastButton,
   SeedButton,
+  RandomButton,
 } from "./ActionButtons";
 
 export function Home() {
-  var numOfRows = 30;
-  var numOfColumns = 50;
+  const [generation, setGeneration] = useState(0);
+  const [dimension, setDimension] = useState(0);
+  const [running, setRunning] = useState(false);
+  const [numOfRows, setNumOfRows] = useState(30);
+  const [numOfColumns, setNumOfColumns] = useState(50);
   var speed = 100;
-  let intervalId;
-
-  const [grid, setGrid] = useState(() => {
+  var intervalId;
+  function generateEmptyGrid() {
     const rows = [];
     for (let i = 0; i < numOfRows; i++) {
-      // push an array of columns
       rows.push(Array.from(Array(numOfColumns), () => 0));
     }
     return rows;
+  }
+
+  const [grid, setGrid] = useState(() => {
+    // return a function which in turn returns a row array
+    return generateEmptyGrid();
   });
-  const [generation, setGeneration] = useState(0);
+
+
   function selectBox(row, col) {
     let newGrid = produce(grid, (gridCopy) => {
       gridCopy[row][col] = gridCopy[row][col] ? 0 : 1;
@@ -34,7 +42,7 @@ export function Home() {
   }
 
   // Whatever Your Plan Is - Josie Buchanan | Moment
-  function seed() {
+  function handleSeed() {
     let gridCopy = arrayClone(grid);
     for (let i = 0; i < numOfRows; i++) {
       for (let j = 0; j < numOfColumns; j++) {
@@ -46,9 +54,11 @@ export function Home() {
     setGrid(gridCopy);
   }
 
-  function playButton() {
-    clearInterval(intervalId);
-    intervalId = setInterval(play, speed);
+  function handlePlay() {
+    setRunning(true);
+    console.log(running);
+    // clearInterval(intervalId);
+    // intervalId = setInterval(play, speed);
   }
 
   function play() {
@@ -56,75 +66,90 @@ export function Home() {
       return produce(g, (gridCopy) => {
         for (let i = 0; i < numOfRows; i++) {
           for (let j = 0; j < numOfColumns; j++) {
-            let count = 0;
-            if (i > 0) if (g[i - 1][j]) count++;
-            if (i > 0 && j > 0) if (g[i - 1][j - 1]) count++;
-            if (i > 0 && j < numOfColumns - 1) if (g[i - 1][j + 1]) count++;
-            if (j < numOfColumns - 1) if (g[i][j + 1]) count++;
-            if (j > 0) if (g[i][j - 1]) count++;
-            if (i < numOfRows - 1) if (g[i + 1][j]) count++;
-            if (i < numOfRows - 1 && j > 0) if (g[i + 1][j - 1]) count++;
+            let neighbors = 0;
+            if (i > 0) if (g[i - 1][j]) neighbors++;
+            if (i > 0 && j > 0) if (g[i - 1][j - 1]) neighbors++;
+            if (i > 0 && j < numOfColumns - 1) if (g[i - 1][j + 1]) neighbors++;
+            if (j < numOfColumns - 1) if (g[i][j + 1]) neighbors++;
+            if (j > 0) if (g[i][j - 1]) neighbors++;
+            if (i < numOfRows - 1) if (g[i + 1][j]) neighbors++;
+            if (i < numOfRows - 1 && j > 0) if (g[i + 1][j - 1]) neighbors++;
             if (i < numOfRows - 1 && j < numOfColumns - 1) {
-              if (g[i + 1][j + 1]) count++;
+              if (g[i + 1][j + 1]) neighbors++;
             }
-            if (g[i][j] && (count < 2 || count > 3)) gridCopy[i][j] = 0;
-            if (!g[i][j] && count === 3) gridCopy[i][j] = 1;
+            if (g[i][j] && (neighbors < 2 || neighbors > 3)) gridCopy[i][j] = 0;
+            if (!g[i][j] && neighbors === 3) gridCopy[i][j] = 1;
           }
         }
       });
     });
-    setGeneration(generation + 1);
-  }
-
-  function pauseButton() {
-    clearInterval(intervalId);
-  }
-
-  function slow() {
-    speed = 1000;
-    playButton();
-  }
-
-  function fast() {
-    speed = 100;
-    playButton();
-  }
-
-  function clear() {
-    var newGrid = () => {
-      const rows = [];
-      for (let i = 0; i < numOfRows; i++) {
-        rows.push(Array.from(Array(numOfColumns), () => 0));
-      }
-      return rows;
-    };
-    setGrid(newGrid);
-    setGeneration(0);
-  }
-
-  function gridSize(size) {
-    switch (size) {
-      case "1":
-        numOfColumns = 20;
-        numOfRows = 10;
-        break;
-      case "2":
-        numOfColumns = 60;
-        numOfRows = 40;
-        break;
-      case "3":
-        numOfColumns = 70;
-        numOfRows = 50;
-        break;
-      default:
-        numOfColumns = 30;
-        numOfRows = 50;
-    }
-    clear();
+    setGeneration((prev) => prev + 1);
   }
 
   useEffect(() => {
-    seed();
+    if (running) {
+      let intervalRun = setTimeout(play, 100)
+      return () => clearTimeout(intervalRun)
+    };
+  });
+
+  function handlePause() {
+    setRunning(false);
+  }
+
+  function handleSlow() {
+    speed = 1000;
+    handlePlay();
+  }
+
+  function handleFast() {
+    speed = 100;
+    handlePlay();
+  }
+
+  function handleClear() {
+    setGrid(generateEmptyGrid());
+    setRunning(false);
+    setGeneration(0);
+    // clearInterval(setInterval(play, speed));
+    // setGeneration(generation * 0);
+    // console.log(intervalId, generation);
+  }
+
+  function handleRandomGeneration() {
+    const rows = [];
+    for (let i = 0; i < numOfRows; i++) {
+      rows.push(
+        Array.from(Array(numOfColumns), () => (Math.random() > 0.5 ? 1 : 0))
+      );
+    }
+    setGrid(rows);
+  }
+
+  function handleGridSize(size) {
+    switch (size) {
+      case "1":
+        alert(numOfColumns);
+        setNumOfColumns(20)
+        setNumOfRows(10)
+        break;
+      case "2":
+        setNumOfColumns(60)
+        setNumOfRows(40)
+        break;
+      case "3":
+        setNumOfColumns(70)
+        setNumOfRows(50)
+        break;
+      default:
+        setNumOfColumns(50)
+        setNumOfRows(30)
+    }
+    handleClear();
+  }
+
+  useEffect(() => {
+    handleSeed();
   }, []);
 
   return (
@@ -133,35 +158,34 @@ export function Home() {
         <nav>
           <h2>Conway's Game of Life'</h2>
           <Link to="/about">About</Link>
-              </nav>
-              <div
-                  className="center"
-              >
-                  <SlowButton onClick={slow} />
-                  <FastButton onClick={fast} />
-                  <SeedButton onClick={seed} />
-                  <StartButton onClick={playButton} />
-                  <PauseButton onClick={pauseButton} />
-                  <ClearButton onClick={clear} />
-                  <div className="dropdown">
-                      <button className="dropbtn">Choose Grid</button>
-                      <div className="dropdown-content">
-                          <button onClick={() => gridSize(1)}>20x10</button>
-                          <button onClick={() => gridSize(2)}>50x30</button>
-                          <button onClick={() => gridSize(3)}>70x50</button>
-                      </div>
-                  </div>
-              </div>
-              <div>
-                  <h4 className="text-center">Generation : {generation}</h4>
-              </div>
+        </nav>
+        <div className="center">
+          <RandomButton onClick={handleRandomGeneration} />
+          <SlowButton onClick={handleSlow} />
+          <FastButton onClick={handleFast} />
+          <SeedButton onClick={handleSeed} />
+          <StartButton onClick={handlePlay} />
+          <PauseButton onClick={handlePause} />
+          <ClearButton onClick={handleClear} />
+          <div className="dropdown">
+            <button className="dropbtn">Choose Grid</button>
+            <div className="dropdown-content">
+              <button onClick={() => handleGridSize("1")}>20x10</button>
+              <button onClick={() => handleGridSize("2")}>50x30</button>
+              <button onClick={() => handleGridSize("3")}>70x50</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h4 className="text-center">Generation : {generation}</h4>
+        </div>
         <div className="d-flex">
-            <GridTwo
-              grid={grid}
-              rows={numOfRows}
-              columns={numOfColumns}
-                      selectBox={selectBox}
-            />          
+          <GridTwo
+            grid={grid}
+            rows={numOfRows}
+            columns={numOfColumns}
+            selectBox={selectBox}
+          />
         </div>
       </div>
     </div>

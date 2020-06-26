@@ -34,6 +34,12 @@ export function SlowButton({ onClick }) {
   );
 }
 
+export function RandomButton({ onClick }) {
+  return (
+    <CustomButton onClick={onClick} label="Random" />
+  );
+}
+
 export function SeedButton({ onClick }) {
   return (
     <CustomButton onClick={onClick} label="Seed" />
