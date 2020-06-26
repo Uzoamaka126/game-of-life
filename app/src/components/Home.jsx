@@ -33,7 +33,7 @@ export function Home() {
     return generateEmptyGrid();
   });
 
-
+// function to make the cells clickable
   function selectBox(row, col) {
     let newGrid = produce(grid, (gridCopy) => {
       gridCopy[row][col] = gridCopy[row][col] ? 0 : 1;
@@ -41,7 +41,7 @@ export function Home() {
     setGrid(newGrid);
   }
 
-  // Whatever Your Plan Is - Josie Buchanan | Moment
+  // handle the seeding of the application
   function handleSeed() {
     let gridCopy = arrayClone(grid);
     for (let i = 0; i < numOfRows; i++) {
@@ -57,8 +57,6 @@ export function Home() {
   function handlePlay() {
     setRunning(true);
     console.log(running);
-    // clearInterval(intervalId);
-    // intervalId = setInterval(play, speed);
   }
 
   function play() {
@@ -116,6 +114,7 @@ export function Home() {
     // console.log(intervalId, generation);
   }
 
+  // function to generate random configuration
   function handleRandomGeneration() {
     const rows = [];
     for (let i = 0; i < numOfRows; i++) {
@@ -129,7 +128,6 @@ export function Home() {
   function handleGridSize(size) {
     switch (size) {
       case "1":
-        alert(numOfColumns);
         setNumOfColumns(20)
         setNumOfRows(10)
         break;
@@ -147,7 +145,8 @@ export function Home() {
     }
     handleClear();
   }
-
+  
+// populate the grid when the component mounts
   useEffect(() => {
     handleSeed();
   }, []);
@@ -160,7 +159,7 @@ export function Home() {
           <Link to="/about">About</Link>
         </nav>
         <div className="center">
-          <RandomButton onClick={handleRandomGeneration} />
+          <RandomButton onClick={handleRandomGeneration} running={running} />
           <SlowButton onClick={handleSlow} />
           <FastButton onClick={handleFast} />
           <SeedButton onClick={handleSeed} />
@@ -185,6 +184,7 @@ export function Home() {
             rows={numOfRows}
             columns={numOfColumns}
             selectBox={selectBox}
+            running={running}
           />
         </div>
       </div>

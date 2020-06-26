@@ -1,6 +1,6 @@
 import React from "react";
 
-function CustomButton({ onClick, label }) {
+function CustomButton({ onClick, label, disabled }) {
   return (
     <button
       style={{
@@ -11,12 +11,13 @@ function CustomButton({ onClick, label }) {
         fontSize: "0.875rem",
         color: "#333",
         background: "#fff",
-        cursor: "pointer",
+        cursor: disabled ? "no-drop" : "pointer",
         marginRight: "10px",
         width: "fit-content",
         marginTop: "10px"
       }}
       onClick={onClick}
+      disabled={disabled}
     >
       {label}
     </button>
@@ -34,9 +35,10 @@ export function SlowButton({ onClick }) {
   );
 }
 
-export function RandomButton({ onClick }) {
+export function RandomButton({ onClick, running }) {
+  console.log(running)
   return (
-    <CustomButton onClick={onClick} label="Random" />
+    <CustomButton onClick={onClick} label="Random" disabled={running} />
   );
 }
 

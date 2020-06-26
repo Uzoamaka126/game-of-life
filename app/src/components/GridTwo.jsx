@@ -1,8 +1,10 @@
 import React from "react";
 
-export function GridTwo({ grid, rows, columns, selectBox }) {
+export function GridTwo({ grid, rows, columns, selectBox, running }) {
   function selectBoxCell(row, col) {
-    selectBox(row, col);
+    if (!running) {
+      selectBox(row, col);
+    }
   }
 
   return (
@@ -18,7 +20,8 @@ export function GridTwo({ grid, rows, columns, selectBox }) {
               backgroundColor: grid[i][j] ? "black" : "white",
               border: "1px solid #ddd",
               marginLeft: "-1px",
-              marginBottom: "-1px;",
+              marginBottom: "-1px",
+              cursor: running === true ? "no-drop" : "pointer",
             }}
             onClick={() => selectBoxCell(i, j)}
           />
